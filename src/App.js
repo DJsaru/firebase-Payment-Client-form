@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 
+
 export default function Reactform (){
 
 
@@ -24,10 +25,11 @@ export default function Reactform (){
     };
 
     const postData = async (e) => {
-        const {name, Address,  Email, Pincode, CardType, CardNumber, ExpirationDate, CVV} = user;
+        e.preventDefault();
 
-        
-        const res = await fetch('https://fir-form-7761f-default-rtdb.firebaseio.com/',console.log("HIII"),
+        const {name, Address,  Email, Pincode, CardType, CardNumber, ExpirationDate, CVV} = user;
+     
+        const res = await fetch('https://fir-form-7761f-default-rtdb.firebaseio.com/form.json',
         {
             method: "POST",
             headers: {
@@ -44,12 +46,11 @@ export default function Reactform (){
                 CVV
             })
         }
-        );
+        ).then((response)=>window.location.reload())
 
     }
         
-        
-     
+
     return(
         <div>
             <div className="sheet">
@@ -66,7 +67,7 @@ export default function Reactform (){
                 <input type="Email" name="Email" id="Email" required placeholder="smartysaru@gmail.com" value={user.Email} onChange={getUserData}/>
             </p>
             <p>Pincode: 
-                <input type="number" name="Pincode" Id="Pincode" required placeholder="431811" value={user.Pincode} onChange={getUserData}/>
+                <input type="number" name="Pincode" id="Pincode" required placeholder="431811" value={user.Pincode} onChange={getUserData}/>
             </p>
             <h2>Payment Information</h2>
             <p>CardType: 
@@ -82,8 +83,8 @@ export default function Reactform (){
                 <input type="password" name="CVV" id="CVV" required placeholder="143" value={user.CVV} onChange={getUserData}/>
             </p>
             <p>
-                <button onClick={postData}> <input type="submit"  value="Pay Now" required /></button>
-                {/* <input type="submit" onClick={postData}  value="Pay Now" required /> */}
+                {/* <button onClick={postData}> <input type="submit"  value="Pay Now" required /></button> */}
+                <input type="submit" onClick={postData}  value="Pay Now" required />
             </p>
             
             </form>
@@ -91,4 +92,3 @@ export default function Reactform (){
      </div>
     )
 }
-
